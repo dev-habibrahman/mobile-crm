@@ -1,0 +1,2421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BodyShop Booster CRM - Mobile Redesign</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .presentation {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            font-size: 20px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .comparison-item {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .comparison-label {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 20px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .comparison-label.before {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .comparison-label.after {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        /* Phone Mockup */
+        .phone-mockup {
+            width: 390px;
+            height: 844px;
+            background: white;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            margin: 0 auto;
+            position: relative;
+            border: 12px solid #111;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: #f9fafb;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .status-bar {
+            height: 44px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #111;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        /* Contact List Screen */
+        .contact-list-header {
+            background: white;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 44px;
+            z-index: 90;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .search-box {
+            flex: 1;
+            background: #f3f4f6;
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-box input {
+            border: none;
+            background: none;
+            flex: 1;
+            font-size: 15px;
+            outline: none;
+            color: #111;
+        }
+
+        .search-box input::placeholder {
+            color: #9ca3af;
+        }
+
+        .filter-btn {
+            width: 44px;
+            height: 44px;
+            background: #f3f4f6;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .saved-filters {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .filter-chip {
+            padding: 6px 14px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #4b5563;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-chip.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .contact-list {
+            padding: 16px;
+            padding-bottom: 100px;
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .contact-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .contact-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .contact-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111;
+            margin-bottom: 4px;
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .status-badge.lead {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-badge.customer {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-badge.estimate {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .vehicle-info {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #4b5563;
+            margin-bottom: 6px;
+        }
+
+        .vehicle-info i {
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .activity-info {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 12px;
+        }
+
+        .contact-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            border-top: 1px solid #f3f4f6;
+        }
+
+        .contact-date {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .assigned-to {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #4b5563;
+            font-weight: 500;
+        }
+
+        .avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .action-btn {
+            flex: 1;
+            height: 36px;
+            border-radius: 10px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 16px;
+        }
+
+        .action-btn.call {
+            background: #ecfdf5;
+            color: #10b981;
+        }
+
+        .action-btn.sms {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .action-btn.email {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+
+        .action-btn.schedule {
+            background: #faf5ff;
+            color: #8b5cf6;
+        }
+
+        .action-btn.more {
+            flex: 0 0 36px;
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .fab {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 80;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 390px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0 28px;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            padding: 0 16px;
+            transition: all 0.2s;
+        }
+
+        .nav-item i {
+            font-size: 22px;
+            color: #9ca3af;
+            transition: all 0.2s;
+        }
+
+        .nav-item span {
+            font-size: 11px;
+            font-weight: 500;
+            color: #9ca3af;
+        }
+
+        .nav-item.active i,
+        .nav-item.active span {
+            color: #2563eb;
+        }
+
+        .nav-item:hover i,
+        .nav-item:hover span {
+            color: #4b5563;
+        }
+
+        /* Dashboard Screen */
+        .dashboard-header {
+            background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%);
+            padding: 20px;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .user-details h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .user-details p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .header-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .badge-notification {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 18px;
+            height: 18px;
+            background: #ef4444;
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px 12px;
+        }
+
+        .section-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111;
+        }
+
+        .section-header a {
+            font-size: 13px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            padding: 0 20px 24px;
+        }
+
+        .quick-action-item {
+            background: white;
+            border-radius: 14px;
+            padding: 16px 8px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-action-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .quick-action-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-size: 18px;
+        }
+
+        .quick-action-icon.blue { background: #eff6ff; color: #2563eb; }
+        .quick-action-icon.green { background: #ecfdf5; color: #10b981; }
+        .quick-action-icon.purple { background: #faf5ff; color: #8b5cf6; }
+        .quick-action-icon.orange { background: #fff7ed; color: #f97316; }
+
+        .quick-action-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: #4b5563;
+        }
+
+        .activity-list {
+            padding: 0 20px 100px;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .activity-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-icon.call { background: #ecfdf5; color: #10b981; }
+        .activity-icon.message { background: #eff6ff; color: #2563eb; }
+        .activity-icon.calendar { background: #faf5ff; color: #8b5cf6; }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #111;
+            margin-bottom: 2px;
+        }
+
+        .activity-time {
+            font-size: 11px;
+            color: #9ca3af;
+        }
+
+        /* Contact Details Screen */
+        .details-header {
+            background: white;
+            padding: 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4b5563;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .contact-hero {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-hero-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            font-weight: 600;
+            margin: 0 auto 16px;
+        }
+
+        .contact-hero-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 8px;
+        }
+
+        .contact-hero-phone {
+            font-size: 15px;
+            color: #4b5563;
+            margin-bottom: 12px;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .hero-action-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+
+        .hero-action-btn.call { background: #ecfdf5; color: #10b981; }
+        .hero-action-btn.sms { background: #eff6ff; color: #2563eb; }
+        .hero-action-btn.email { background: #f3f4f6; color: #4b5563; }
+        .hero-action-btn.calendar { background: #faf5ff; color: #8b5cf6; }
+
+        .hero-action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .details-section {
+            background: white;
+            margin: 16px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .details-section-header {
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .details-section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111;
+        }
+
+        .details-section-content {
+            padding: 16px 20px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f9fafb;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .detail-value {
+            font-size: 13px;
+            color: #111;
+            font-weight: 500;
+        }
+
+        /* Add Contact Screen */
+        .form-header {
+            background: white;
+            padding: 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .form-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 16px;
+        }
+
+        .progress-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .progress-step {
+            flex: 1;
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-step.active {
+            background: #2563eb;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .step-indicator span.active {
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .form-content {
+            padding: 24px 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .form-footer {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 390px;
+            background: white;
+            padding: 16px 20px 28px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            flex: 1;
+            height: 48px;
+            border-radius: 12px;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Tasks Screen */
+        .tasks-header {
+            background: white;
+            padding: 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .tasks-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .tasks-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111;
+        }
+
+        .tasks-tabs {
+            display: flex;
+            gap: 8px;
+            background: #f3f4f6;
+            padding: 4px;
+            border-radius: 10px;
+        }
+
+        .task-tab {
+            flex: 1;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .task-tab.active {
+            background: white;
+            color: #111;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tasks-list {
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        .task-section {
+            margin-bottom: 24px;
+        }
+
+        .task-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .task-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .task-section-title .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .task-section-title .dot.today { background: #ef4444; }
+        .task-section-title .dot.upcoming { background: #2563eb; }
+        .task-section-title .dot.completed { background: #10b981; }
+
+        .task-count {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .task-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 10px;
+            box-shadow: var(--shadow);
+            display: flex;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .task-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .task-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .task-checkbox.checked {
+            background: #10b981;
+            border-color: #10b981;
+            color: white;
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111;
+            margin-bottom: 4px;
+        }
+
+        .task-contact {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .task-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .task-date {
+            font-size: 11px;
+            color: #9ca3af;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .task-priority {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .task-priority.high {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .task-priority.medium {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .task-priority.low {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        /* Messages Screen */
+        .messages-header {
+            background: white;
+            padding: 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .messages-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .messages-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111;
+        }
+
+        .compose-btn {
+            width: 40px;
+            height: 40px;
+            background: #2563eb;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+        }
+
+        .message-search {
+            background: #f3f4f6;
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .message-search input {
+            border: none;
+            background: none;
+            flex: 1;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .messages-list {
+            padding: 0;
+        }
+
+        .message-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px 20px;
+            background: white;
+            border-bottom: 1px solid #f3f4f6;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .message-item:hover {
+            background: #f9fafb;
+        }
+
+        .message-item.unread {
+            background: #eff6ff;
+        }
+
+        .message-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .online-indicator {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 12px;
+            height: 12px;
+            background: #10b981;
+            border: 2px solid white;
+            border-radius: 50%;
+        }
+
+        .message-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .message-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .message-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #111;
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .message-preview {
+            font-size: 13px;
+            color: #6b7280;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 6px;
+        }
+
+        .message-item.unread .message-preview {
+            color: #111;
+            font-weight: 500;
+        }
+
+        .message-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .message-vehicle {
+            font-size: 11px;
+            color: #9ca3af;
+        }
+
+        .unread-badge {
+            background: #2563eb;
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        /* Filter Bottom Sheet */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .bottom-sheet {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(100%);
+            width: 390px;
+            background: white;
+            border-radius: 24px 24px 0 0;
+            padding: 20px;
+            z-index: 201;
+            transition: transform 0.3s;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .bottom-sheet.active {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .sheet-handle {
+            width: 40px;
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            margin: 0 auto 20px;
+        }
+
+        .sheet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .sheet-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111;
+        }
+
+        .close-btn {
+            width: 32px;
+            height: 32px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .filter-group {
+            margin-bottom: 24px;
+        }
+
+        .filter-group-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #111;
+            margin-bottom: 12px;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter-option {
+            padding: 8px 16px;
+            background: #f3f4f6;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #4b5563;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-option.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .sheet-footer {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        /* Screens Container */
+        .screens-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .screen-container {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .screen-label {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #111;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 850px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .phone-mockup,
+            .bottom-nav,
+            .form-footer,
+            .bottom-sheet {
+                width: 100%;
+                max-width: 390px;
+            }
+            
+            body {
+                padding: 20px 10px;
+            }
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .phone-mockup {
+            animation: slideUp 0.6s ease-out;
+        }
+
+        /* Hide scrollbar */
+        .phone-screen::-webkit-scrollbar {
+            width: 0;
+        }
+
+        .saved-filters::-webkit-scrollbar,
+        .bottom-sheet::-webkit-scrollbar {
+            height: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <div class="header">
+            <h1>BodyShop Booster CRM</h1>
+            <p>Mobile Experience Redesign</p>
+        </div>
+
+        <!-- Comparison Section -->
+        <div class="section">
+            <h2 class="section-title">Before & After</h2>
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <span class="comparison-label before">Current Design</span>
+                    <div class="phone-mockup" style="transform: scale(0.85); transform-origin: top center;">
+                        <div class="phone-screen" style="background: #f9fafb;">
+                            <div style="padding: 20px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                    <div style="font-size: 14px; color: #6b7280;">No Filters Applied</div>
+                                    <i class="fas fa-user-plus" style="color: #2563eb;"></i>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding: 12px; background: white; border-radius: 8px;">
+                                    <div style="width: 40px; height: 20px; background: #e5e7eb; border-radius: 10px; position: relative;">
+                                        <div style="width: 16px; height: 16px; background: white; border-radius: 50%; position: absolute; left: 2px; top: 2px;"></div>
+                                    </div>
+                                    <span style="font-size: 13px; color: #4b5563;">Unread Alerts</span>
+                                </div>
+                                
+                                <div style="background: white; padding: 12px; border-radius: 8px; margin-bottom: 8px;">
+                                    <div style="font-weight: 600; font-size: 14px; margin-bottom: 4px;">Christine Hilty</div>
+                                    <div style="font-size: 12px; color: #6b7280;">2018 Toyota Corolla</div>
+                                    <div style="font-size: 11px; color: #9ca3af; margin-top: 4px;">Customer message received...</div>
+                                    <div style="font-size: 11px; color: #9ca3af; text-align: right;">Jul 10</div>
+                                </div>
+
+                                <div style="background: white; padding: 12px; border-radius: 8px; margin-bottom: 8px;">
+                                    <div style="font-weight: 600; font-size: 14px; margin-bottom: 4px;">Emily Cramer</div>
+                                    <div style="font-size: 12px; color: #6b7280;">2014 Subaru XV CROSSTR</div>
+                                    <div style="font-size: 11px; color: #9ca3af; text-align: right; margin-top: 8px;">Jul 10</div>
+                                </div>
+
+                                <div style="background: white; padding: 12px; border-radius: 8px; margin-bottom: 8px;">
+                                    <div style="font-weight: 600; font-size: 14px; margin-bottom: 4px;">Kristen Tubiolo</div>
+                                    <div style="font-size: 12px; color: #6b7280;">2020 Honda Pilot</div>
+                                    <div style="font-size: 11px; color: #9ca3af; margin-top: 4px;">Calendar booking completed...</div>
+                                    <div style="font-size: 11px; color: #9ca3af; text-align: right;">Jul 10</div>
+                                </div>
+
+                                <div style="background: white; padding: 12px; border-radius: 8px; margin-bottom: 8px;">
+                                    <div style="font-weight: 600; font-size: 14px; margin-bottom: 4px;">ROBERT CAPPONE</div>
+                                    <div style="font-size: 12px; color: #6b7280;">2024 Ford F-150</div>
+                                    <div style="font-size: 11px; color: #9ca3af; margin-top: 4px;">Customer message received...</div>
+                                    <div style="font-size: 11px; color: #9ca3af; text-align: right;">Jul 10</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comparison-item">
+                    <span class="comparison-label after">Redesigned</span>
+                    <!-- Redesigned Contact List Screen -->
+                    <div class="phone-mockup" style="transform: scale(0.85); transform-origin: top center;">
+                        <div class="phone-screen">
+                            <div class="status-bar">
+                                <span>9:41</span>
+                                <div style="display: flex; gap: 5px;">
+                                    <i class="fas fa-signal"></i>
+                                    <i class="fas fa-wifi"></i>
+                                    <i class="fas fa-battery-full"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-list-header">
+                                <div class="search-container">
+                                    <div class="search-box">
+                                        <i class="fas fa-search" style="color: #9ca3af;"></i>
+                                        <input type="text" placeholder="Search contacts...">
+                                    </div>
+                                    <div class="filter-btn" onclick="toggleFilter()">
+                                        <i class="fas fa-filter" style="color: #4b5563;"></i>
+                                    </div>
+                                </div>
+                                <div class="saved-filters">
+                                    <div class="filter-chip active">All</div>
+                                    <div class="filter-chip">My Leads</div>
+                                    <div class="filter-chip">Estimates</div>
+                                    <div class="filter-chip">VIP</div>
+                                </div>
+                            </div>
+
+                            <div class="contact-list">
+                                <div class="contact-card">
+                                    <div class="contact-card-header">
+                                        <div>
+                                            <div class="contact-name">Christine Hilty</div>
+                                        </div>
+                                        <span class="status-badge lead">Lead</span>
+                                    </div>
+                                    <div class="vehicle-info">
+                                        <i class="fas fa-car"></i>
+                                        2018 Toyota Corolla
+                                    </div>
+                                    <div class="activity-info">
+                                        Last activity: Sent proposal
+                                    </div>
+                                    <div class="contact-card-footer">
+                                        <span class="contact-date">May 12</span>
+                                        <div class="assigned-to">
+                                            <div class="avatar">AM</div>
+                                            Alex M.
+                                        </div>
+                                    </div>
+                                    <div class="quick-actions">
+                                        <button class="action-btn call"><i class="fas fa-phone"></i></button>
+                                        <button class="action-btn sms"><i class="fas fa-comment"></i></button>
+                                        <button class="action-btn email"><i class="fas fa-envelope"></i></button>
+                                        <button class="action-btn schedule"><i class="fas fa-calendar"></i></button>
+                                        <button class="action-btn more"><i class="fas fa-ellipsis-h"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="contact-card">
+                                    <div class="contact-card-header">
+                                        <div>
+                                            <div class="contact-name">Emily Cramer</div>
+                                        </div>
+                                        <span class="status-badge customer">Customer</span>
+                                    </div>
+                                    <div class="vehicle-info">
+                                        <i class="fas fa-car"></i>
+                                        2014 Subaru XV CROSSTR
+                                    </div>
+                                    <div class="activity-info">
+                                        Scheduled demo
+                                    </div>
+                                    <div class="contact-card-footer">
+                                        <span class="contact-date">Jun 3</span>
+                                        <div class="assigned-to">
+                                            <div class="avatar" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">JD</div>
+                                            Jamie D.
+                                        </div>
+                                    </div>
+                                    <div class="quick-actions">
+                                        <button class="action-btn call"><i class="fas fa-phone"></i></button>
+                                        <button class="action-btn sms"><i class="fas fa-comment"></i></button>
+                                        <button class="action-btn email"><i class="fas fa-envelope"></i></button>
+                                        <button class="action-btn schedule"><i class="fas fa-calendar"></i></button>
+                                        <button class="action-btn more"><i class="fas fa-ellipsis-h"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="contact-card">
+                                    <div class="contact-card-header">
+                                        <div>
+                                            <div class="contact-name">Kristen Tubiolo</div>
+                                        </div>
+                                        <span class="status-badge lead">Lead</span>
+                                    </div>
+                                    <div class="vehicle-info">
+                                        <i class="fas fa-car"></i>
+                                        2018 Toyota Corolla
+                                    </div>
+                                    <div class="activity-info">
+                                        Follow-up call
+                                    </div>
+                                    <div class="contact-card-footer">
+                                        <span class="contact-date">Jun 5</span>
+                                        <div class="assigned-to">
+                                            <div class="avatar">AM</div>
+                                            Alex M.
+                                        </div>
+                                    </div>
+                                    <div class="quick-actions">
+                                        <button class="action-btn call"><i class="fas fa-phone"></i></button>
+                                        <button class="action-btn sms"><i class="fas fa-comment"></i></button>
+                                        <button class="action-btn email"><i class="fas fa-envelope"></i></button>
+                                        <button class="action-btn schedule"><i class="fas fa-calendar"></i></button>
+                                        <button class="action-btn more"><i class="fas fa-ellipsis-h"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fab">
+                                <i class="fas fa-plus"></i>
+                            </div>
+
+                            <div class="bottom-nav">
+                                <div class="nav-item">
+                                    <i class="fas fa-home"></i>
+                                    <span>Home</span>
+                                </div>
+                                <div class="nav-item active">
+                                    <i class="fas fa-users"></i>
+                                    <span>Contacts</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-tasks"></i>
+                                    <span>Tasks</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-comments"></i>
+                                    <span>Messages</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                    <span>More</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- All Screens Section -->
+        <div class="section">
+            <h2 class="section-title">Complete Screen Designs</h2>
+            <div class="screens-grid">
+                
+                <!-- Dashboard Screen -->
+                <div class="screen-container">
+                    <div class="screen-label">Dashboard</div>
+                    <div class="phone-mockup" style="transform: scale(0.9);">
+                        <div class="phone-screen">
+                            <div class="dashboard-header">
+                                <div class="dashboard-top">
+                                    <div class="user-info">
+                                        <div class="user-avatar">AM</div>
+                                        <div class="user-details">
+                                            <h3>Good Morning, Alex</h3>
+                                            <p>Service Advisor</p>
+                                        </div>
+                                    </div>
+                                    <div class="header-actions">
+                                        <div class="header-icon">
+                                            <i class="fas fa-bell"></i>
+                                            <span class="badge-notification">4</span>
+                                        </div>
+                                        <div class="header-icon">
+                                            <i class="fas fa-sliders-h"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stats-grid">
+                                    <div class="stat-card">
+                                        <div class="stat-value">1,284</div>
+                                        <div class="stat-label">Total Contacts</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-value">24</div>
+                                        <div class="stat-label">New Leads</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-value">8</div>
+                                        <div class="stat-label">Appointments</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-value">12</div>
+                                        <div class="stat-label">Tasks Due</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="section-header">
+                                <h3>Quick Actions</h3>
+                            </div>
+                            <div class="quick-actions-grid">
+                                <div class="quick-action-item">
+                                    <div class="quick-action-icon blue">
+                                        <i class="fas fa-user-plus"></i>
+                                    </div>
+                                    <div class="quick-action-label">Add Contact</div>
+                                </div>
+                                <div class="quick-action-item">
+                                    <div class="quick-action-icon purple">
+                                        <i class="fas fa-calendar-plus"></i>
+                                    </div>
+                                    <div class="quick-action-label">Schedule</div>
+                                </div>
+                                <div class="quick-action-item">
+                                    <div class="quick-action-icon green">
+                                        <i class="fas fa-comment"></i>
+                                    </div>
+                                    <div class="quick-action-label">Message</div>
+                                </div>
+                                <div class="quick-action-item">
+                                    <div class="quick-action-icon orange">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="quick-action-label">Task</div>
+                                </div>
+                            </div>
+
+                            <div class="section-header">
+                                <h3>Recent Activity</h3>
+                                <a href="#">View All</a>
+                            </div>
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <div class="activity-icon call">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Called Marcus Chen</div>
+                                        <div class="activity-time">2 min ago • 4m 32s</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon message">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Sent estimate to Sarah Lopez</div>
+                                        <div class="activity-time">18 min ago • $1,240</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon calendar">
+                                        <i class="fas fa-calendar-check"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Scheduled with David Park</div>
+                                        <div class="activity-time">1 hour ago • Tomorrow 10:30 AM</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bottom-nav">
+                                <div class="nav-item active">
+                                    <i class="fas fa-home"></i>
+                                    <span>Home</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>Contacts</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-tasks"></i>
+                                    <span>Tasks</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-comments"></i>
+                                    <span>Messages</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                    <span>More</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Details Screen -->
+                <div class="screen-container">
+                    <div class="screen-label">Contact Details</div>
+                    <div class="phone-mockup" style="transform: scale(0.9);">
+                        <div class="phone-screen">
+                            <div class="status-bar">
+                                <span>9:41</span>
+                                <div style="display: flex; gap: 5px;">
+                                    <i class="fas fa-signal"></i>
+                                    <i class="fas fa-wifi"></i>
+                                    <i class="fas fa-battery-full"></i>
+                                </div>
+                            </div>
+
+                            <div class="details-header">
+                                <div class="back-button">
+                                    <i class="fas fa-chevron-left"></i>
+                                    Back to Contacts
+                                </div>
+                                <div class="contact-hero">
+                                    <div class="contact-hero-avatar">MC</div>
+                                    <div class="contact-hero-name">Marcus Chen</div>
+                                    <div class="contact-hero-phone">(415) 555-0142</div>
+                                    <span class="status-badge customer" style="display: inline-block; margin-top: 8px;">Customer</span>
+                                </div>
+                                <div class="hero-actions">
+                                    <button class="hero-action-btn call"><i class="fas fa-phone"></i></button>
+                                    <button class="hero-action-btn sms"><i class="fas fa-comment"></i></button>
+                                    <button class="hero-action-btn email"><i class="fas fa-envelope"></i></button>
+                                    <button class="hero-action-btn calendar"><i class="fas fa-calendar"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="details-section">
+                                <div class="details-section-header">
+                                    <span class="details-section-title">Contact Information</span>
+                                    <i class="fas fa-chevron-down" style="color: #9ca3af;"></i>
+                                </div>
+                                <div class="details-section-content">
+                                    <div class="detail-row">
+                                        <span class="detail-label">Email</span>
+                                        <span class="detail-value">marcus.chen@email.com</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Lead Source</span>
+                                        <span class="detail-value">Google Ads</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Tags</span>
+                                        <span class="detail-value">VIP, Repeat</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="details-section">
+                                <div class="details-section-header">
+                                    <span class="details-section-title">Vehicle Information</span>
+                                    <i class="fas fa-chevron-down" style="color: #9ca3af;"></i>
+                                </div>
+                                <div class="details-section-content">
+                                    <div class="detail-row">
+                                        <span class="detail-label">Vehicle</span>
+                                        <span class="detail-value">2021 Honda Accord</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Color</span>
+                                        <span class="detail-value">Gray</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">License Plate</span>
+                                        <span class="detail-value">8ABC123</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">VIN</span>
+                                        <span class="detail-value">1HGBH41JXMN109186</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="details-section">
+                                <div class="details-section-header">
+                                    <span class="details-section-title">Activity History</span>
+                                    <i class="fas fa-chevron-right" style="color: #9ca3af;"></i>
+                                </div>
+                            </div>
+
+                            <div class="details-section">
+                                <div class="details-section-header">
+                                    <span class="details-section-title">Notes</span>
+                                    <i class="fas fa-chevron-right" style="color: #9ca3af;"></i>
+                                </div>
+                            </div>
+
+                            <div class="bottom-nav">
+                                <div class="nav-item">
+                                    <i class="fas fa-home"></i>
+                                    <span>Home</span>
+                                </div>
+                                <div class="nav-item active">
+                                    <i class="fas fa-users"></i>
+                                    <span>Contacts</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-tasks"></i>
+                                    <span>Tasks</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-comments"></i>
+                                    <span>Messages</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                    <span>More</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tasks Screen -->
+                <div class="screen-container">
+                    <div class="screen-label">Tasks</div>
+                    <div class="phone-mockup" style="transform: scale(0.9);">
+                        <div class="phone-screen">
+                            <div class="status-bar">
+                                <span>9:41</span>
+                                <div style="display: flex; gap: 5px;">
+                                    <i class="fas fa-signal"></i>
+                                    <i class="fas fa-wifi"></i>
+                                    <i class="fas fa-battery-full"></i>
+                                </div>
+                            </div>
+
+                            <div class="tasks-header">
+                                <div class="tasks-title-row">
+                                    <h2 class="tasks-title">Tasks</h2>
+                                    <div class="compose-btn">
+                                        <i class="fas fa-plus"></i>
+                                    </div>
+                                </div>
+                                <div class="tasks-tabs">
+                                    <div class="task-tab active">All</div>
+                                    <div class="task-tab">Today</div>
+                                    <div class="task-tab">Upcoming</div>
+                                    <div class="task-tab">Done</div>
+                                </div>
+                            </div>
+
+                            <div class="tasks-list">
+                                <div class="task-section">
+                                    <div class="task-section-header">
+                                        <div class="task-section-title">
+                                            <span class="dot today"></span>
+                                            Due Today
+                                        </div>
+                                        <span class="task-count">3 tasks</span>
+                                    </div>
+                                    
+                                    <div class="task-card">
+                                        <div class="task-checkbox"></div>
+                                        <div class="task-content">
+                                            <div class="task-title">Follow up on brake estimate</div>
+                                            <div class="task-contact">Marcus Chen • 2021 Honda Accord</div>
+                                            <div class="task-footer">
+                                                <span class="task-date">
+                                                    <i class="far fa-clock"></i>
+                                                    Today, 2:00 PM
+                                                </span>
+                                                <span class="task-priority high">High</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="task-card">
+                                        <div class="task-checkbox"></div>
+                                        <div class="task-content">
+                                            <div class="task-title">Confirm pickup time</div>
+                                            <div class="task-contact">Sarah Lopez • 2019 Toyota Camry</div>
+                                            <div class="task-footer">
+                                                <span class="task-date">
+                                                    <i class="far fa-clock"></i>
+                                                    Today, 4:30 PM
+                                                </span>
+                                                <span class="task-priority medium">Medium</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="task-section">
+                                    <div class="task-section-header">
+                                        <div class="task-section-title">
+                                            <span class="dot upcoming"></span>
+                                            Upcoming
+                                        </div>
+                                        <span class="task-count">5 tasks</span>
+                                    </div>
+                                    
+                                    <div class="task-card">
+                                        <div class="task-checkbox"></div>
+                                        <div class="task-content">
+                                            <div class="task-title">Send insurance docs</div>
+                                            <div class="task-contact">David Park • 2023 Ford F-150</div>
+                                            <div class="task-footer">
+                                                <span class="task-date">
+                                                    <i class="far fa-clock"></i>
+                                                    Tomorrow
+                                                </span>
+                                                <span class="task-priority low">Low</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bottom-nav">
+                                <div class="nav-item">
+                                    <i class="fas fa-home"></i>
+                                    <span>Home</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>Contacts</span>
+                                </div>
+                                <div class="nav-item active">
+                                    <i class="fas fa-tasks"></i>
+                                    <span>Tasks</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-comments"></i>
+                                    <span>Messages</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                    <span>More</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Messages Screen -->
+                <div class="screen-container">
+                    <div class="screen-label">Messages</div>
+                    <div class="phone-mockup" style="transform: scale(0.9);">
+                        <div class="phone-screen">
+                            <div class="status-bar">
+                                <span>9:41</span>
+                                <div style="display: flex; gap: 5px;">
+                                    <i class="fas fa-signal"></i>
+                                    <i class="fas fa-wifi"></i>
+                                    <i class="fas fa-battery-full"></i>
+                                </div>
+                            </div>
+
+                            <div class="messages-header">
+                                <div class="messages-title-row">
+                                    <h2 class="messages-title">Messages</h2>
+                                    <div class="compose-btn">
+                                        <i class="fas fa-pen"></i>
+                                    </div>
+                                </div>
+                                <div class="message-search">
+                                    <i class="fas fa-search" style="color: #9ca3af;"></i>
+                                    <input type="text" placeholder="Search conversations...">
+                                </div>
+                            </div>
+
+                            <div class="messages-list">
+                                <div class="message-item unread">
+                                    <div class="message-avatar">
+                                        MC
+                                        <span class="online-indicator"></span>
+                                    </div>
+                                    <div class="message-content">
+                                        <div class="message-top">
+                                            <span class="message-name">Marcus Chen</span>
+                                            <span class="message-time">2m</span>
+                                        </div>
+                                        <div class="message-preview">Sounds good. Should I drop it off tomorrow morning?</div>
+                                        <div class="message-meta">
+                                            <span class="message-vehicle">2021 Honda Accord</span>
+                                            <span class="unread-badge">2</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="message-item unread">
+                                    <div class="message-avatar" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                        SL
+                                    </div>
+                                    <div class="message-content">
+                                        <div class="message-top">
+                                            <span class="message-name">Sarah Lopez</span>
+                                            <span class="message-time">18m</span>
+                                        </div>
+                                        <div class="message-preview">Thanks for the estimate! Can we schedule for next week?</div>
+                                        <div class="message-meta">
+                                            <span class="message-vehicle">2019 Toyota Camry</span>
+                                            <span class="unread-badge">1</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="message-item">
+                                    <div class="message-avatar" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                                        DP
+                                    </div>
+                                    <div class="message-content">
+                                        <div class="message-top">
+                                            <span class="message-name">David Park</span>
+                                            <span class="message-time">1h</span>
+                                        </div>
+                                        <div class="message-preview">Perfect, see you at 10:30 tomorrow.</div>
+                                        <div class="message-meta">
+                                            <span class="message-vehicle">2023 Ford F-150</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="message-item">
+                                    <div class="message-avatar" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                                        EW
+                                    </div>
+                                    <div class="message-content">
+                                        <div class="message-top">
+                                            <span class="message-name">Emma Wilson</span>
+                                            <span class="message-time">3h</span>
+                                        </div>
+                                        <div class="message-preview">Got it, thanks for letting me know about the delay.</div>
+                                        <div class="message-meta">
+                                            <span class="message-vehicle">2020 Mazda CX-5</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bottom-nav">
+                                <div class="nav-item">
+                                    <i class="fas fa-home"></i>
+                                    <span>Home</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>Contacts</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-tasks"></i>
+                                    <span>Tasks</span>
+                                </div>
+                                <div class="nav-item active">
+                                    <i class="fas fa-comments"></i>
+                                    <span>Messages</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                    <span>More</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Contact Screen -->
+                <div class="screen-container">
+                    <div class="screen-label">Add Contact</div>
+                    <div class="phone-mockup" style="transform: scale(0.9);">
+                        <div class="phone-screen">
+                            <div class="status-bar">
+                                <span>9:41</span>
+                                <div style="display: flex; gap: 5px;">
+                                    <i class="fas fa-signal"></i>
+                                    <i class="fas fa-wifi"></i>
+                                    <i class="fas fa-battery-full"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-header">
+                                <div class="form-title">New Contact</div>
+                                <div class="progress-bar">
+                                    <div class="progress-step active"></div>
+                                    <div class="progress-step"></div>
+                                    <div class="progress-step"></div>
+                                    <div class="progress-step"></div>
+                                </div>
+                                <div class="step-indicator">
+                                    <span class="active">Personal</span>
+                                    <span>Vehicle</span>
+                                    <span>CRM</span>
+                                    <span>Review</span>
+                                </div>
+                            </div>
+
+                            <div class="form-content" style="padding-bottom: 100px;">
+                                <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Personal Information</h3>
+                                <p style="font-size: 13px; color: #6b7280; margin-bottom: 24px;">Step 1 of 4 • Tell us about your contact</p>
+
+                                <div class="form-group">
+                                    <label class="form-label">Full Name *</label>
+                                    <input type="text" class="form-input" placeholder="John Doe" value="Marcus Chen">
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Phone *</label>
+                                        <input type="tel" class="form-input" placeholder="(415) 555-0142" value="(415) 555-0142">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-input" placeholder="john@email.com" value="marcus.chen@email.com">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Company</label>
+                                    <input type="text" class="form-input" placeholder="Company name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Job Title</label>
+                                    <input type="text" class="form-input" placeholder="Job title">
+                                </div>
+                            </div>
+
+                            <div class="form-footer">
+                                <button class="btn btn-secondary">Cancel</button>
+                                <button class="btn btn-primary">
+                                    Next
+                                    <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Bottom Sheet -->
+                <div class="screen-container">
+                    <div class="screen-label">Search & Filter</div>
+                    <div class="phone-mockup" style="transform: scale(0.9); position: relative;">
+                        <div class="phone-screen" style="background: rgba(0,0,0,0.3);">
+                            <!-- Blurred background -->
+                            <div style="padding: 20px; opacity: 0.3;">
+                                <div style="height: 200px; background: white; border-radius: 16px; margin-bottom: 12px;"></div>
+                                <div style="height: 200px; background: white; border-radius: 16px; margin-bottom: 12px;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="bottom-sheet" style="transform: translateY(0);">
+                            <div class="sheet-handle"></div>
+                            <div class="sheet-header">
+                                <h3 class="sheet-title">Filters</h3>
+                                <div class="close-btn" onclick="toggleFilter()">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                            </div>
+
+                            <div class="search-box" style="margin-bottom: 24px;">
+                                <i class="fas fa-search" style="color: #9ca3af;"></i>
+                                <input type="text" placeholder="Search contacts...">
+                            </div>
+
+                            <div class="filter-group">
+                                <div class="filter-group-title">Status</div>
+                                <div class="filter-options">
+                                    <div class="filter-option active">Lead</div>
+                                    <div class="filter-option active">Customer</div>
+                                    <div class="filter-option">Estimate Sent</div>
+                                    <div class="filter-option">Appointment</div>
+                                    <div class="filter-option">Completed</div>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <div class="filter-group-title">Vehicle Type</div>
+                                <div class="filter-options">
+                                    <div class="filter-option active">Sedan</div>
+                                    <div class="filter-option">SUV</div>
+                                    <div class="filter-option">Truck</div>
+                                    <div class="filter-option">Van</div>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <div class="filter-group-title">Date Range</div>
+                                <div class="filter-options">
+                                    <div class="filter-option">Last 7 days</div>
+                                    <div class="filter-option active">Last 30 days</div>
+                                    <div class="filter-option">This year</div>
+                                    <div class="filter-option">Custom</div>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <div class="filter-group-title">Lead Source</div>
+                                <div class="filter-options">
+                                    <div class="filter-option">Google Ads</div>
+                                    <div class="filter-option">Facebook</div>
+                                    <div class="filter-option">Referral</div>
+                                    <div class="filter-option">Walk-in</div>
+                                </div>
+                            </div>
+
+                            <div class="sheet-footer">
+                                <button class="btn btn-secondary">Clear All</button>
+                                <button class="btn btn-primary">Apply Filters • 24</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Design Principles -->
+        <div class="section">
+            <h2 class="section-title">Design Principles</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 40px;">
+                <div style="background: white; padding: 32px; border-radius: 20px; box-shadow: var(--shadow-xl);">
+                    <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; margin-bottom: 16px;">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Action First</h3>
+                    <p style="color: #6b7280; font-size: 14px; line-height: 1.6;">Users come to perform actions, not read data. Primary actions are always visible and thumb-accessible.</p>
+                </div>
+
+                <div style="background: white; padding: 32px; border-radius: 20px; box-shadow: var(--shadow-xl);">
+                    <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #10b981 0%, #34d399 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; margin-bottom: 16px;">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Progressive Disclosure</h3>
+                    <p style="color: #6b7280; font-size: 14px; line-height: 1.6;">Show only the most important information first. Reveal secondary details when needed through accordions.</p>
+                </div>
+
+                <div style="background: white; padding: 32px; border-radius: 20px; box-shadow: var(--shadow-xl);">
+                    <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; margin-bottom: 16px;">
+                        <i class="fas fa-hand-pointer"></i>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Thumb-Friendly</h3>
+                    <p style="color: #6b7280; font-size: 14px; line-height: 1.6;">Designed for one-handed operation. Critical UI anchored to the bottom 30% of the screen.</p>
+                </div>
+
+                <div style="background: white; padding: 32px; border-radius: 20px; box-shadow: var(--shadow-xl);">
+                    <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #ef4444 0%, #f87171 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; margin-bottom: 16px;">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Fast Scanning</h3>
+                    <p style="color: #6b7280; font-size: 14px; line-height: 1.6;">Users can identify any contact in under 2 seconds with clear visual hierarchy and status badges.</p>
+                </div>
+
+                <div style="background: white; padding: 32px; border-radius: 20px; box-shadow: var(--shadow-xl);">
+                    <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; margin-bottom: 16px;">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Reduce Cognitive Load</h3>
+                    <p style="color: #6b7280; font-size: 14px; line-height: 1.6;">Clear spacing, consistent hierarchy, and generous whitespace throughout the experience.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleFilter()"></div>
+
+    <script>
+        function toggleFilter() {
+            const overlay = document.getElementById('overlay');
+            const sheet = document.querySelector('.bottom-sheet');
+            
+            if (overlay.classList.contains('active')) {
+                overlay.classList.remove('active');
+                sheet.classList.remove('active');
+            } else {
+                overlay.classList.add('active');
+                sheet.classList.add('active');
+            }
+        }
+
+        // Add interaction to task checkboxes
+        document.querySelectorAll('.task-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', function() {
+                this.classList.toggle('checked');
+                if (this.classList.contains('checked')) {
+                    this.innerHTML = '<i class="fas fa-check" style="font-size: 12px;"></i>';
+                } else {
+                    this.innerHTML = '';
+                }
+            });
+        });
+
+        // Add interaction to filter chips
+        document.querySelectorAll('.filter-chip, .filter-option').forEach(chip => {
+            chip.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        });
+
+        // Add interaction to action buttons
+        document.querySelectorAll('.action-btn, .hero-action-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Add ripple effect
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.width = '20px';
+                ripple.style.height = '20px';
+                ripple.style.background = 'rgba(255,255,255,0.5)';
+                ripple.style.borderRadius = '50%';
+                ripple.style.transform = 'translate(-50%, -50%)';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.animation = 'ripple 0.6s ease-out';
+                
+                const rect = this.getBoundingClientRect();
+                ripple.style.left = (e.clientX - rect.left) + 'px';
+                ripple.style.top = (e.clientY - rect.top) + 'px';
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Add CSS animation for ripple
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    width: 100px;
+                    height: 100px;
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
